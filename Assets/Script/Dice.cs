@@ -54,4 +54,27 @@ public class Dice : MonoBehaviour
         }
 
     }
+    public void LunchDie(GameObject gb)
+    {
+        totalui.GetComponent<stat>().number = 0;
+        launchForce = Random.Range(5f, 15f);
+        torqueAmount = Random.Range(3f, 5f);
+        rb = gb.GetComponent<Rigidbody>();
+        // Reset velocity and angular velocity first
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        // Apply upward force
+        rb.AddForce(Vector3.up * launchForce, ForceMode.Impulse);
+
+        // Add random torque for spinning
+        Vector3 randomTorque = new Vector3(
+            Random.Range(-torqueAmount, torqueAmount),
+            Random.Range(-torqueAmount, torqueAmount),
+            Random.Range(-torqueAmount, torqueAmount)
+        );
+
+        rb.AddTorque(randomTorque, ForceMode.Impulse);
+
+    }
 }
